@@ -1,0 +1,28 @@
+{
+  "name": "repomark-monorepo",
+  "version": "1.0.0",
+  "description": "RepoMark: Deterministic cryptographic provenance and resilient watermark tracking for source code",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test:schemas && tsx tests/core.test.ts && tsx tests/cli.test.ts && tsx tests/e2e.test.ts",
+    "test:schemas": "node tests/validate-schemas.mjs",
+    "test:core": "tsx tests/core.test.ts",
+    "test:cli": "tsx tests/cli.test.ts",
+    "test:e2e": "tsx tests/e2e.test.ts",
+    "repomark": "tsx packages/cli/src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/vscode": "^1.125.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

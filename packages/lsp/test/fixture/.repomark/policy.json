@@ -1,0 +1,17 @@
+{
+  "version": "v1",
+  "trustedIssuers": [
+    {
+      "id": "test-issuer",
+      "publicKey": "MCowBQYDK2VwAyEAFwb5x2dEkXuGauQcdYG067QBHWCB6QWIkPfhBZC8VUs="
+    }
+  ],
+  "algorithms": {
+    "hash": "sha256",
+    "signature": "ed25519",
+    "tree": "repomark-merkle-v1",
+    "canonicalization": "repomark-c14n-v1"
+  },
+  "exclusions": [],
+  "cleanExportOnly": false
+}

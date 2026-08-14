@@ -1,0 +1,26 @@
+{
+  "_type": "https://repomark.dev/portable-file/v1",
+  "capsuleVersion": "v1",
+  "file": {
+    "path": "src/index.ts",
+    "size": 100
+  },
+  "membershipProof": {
+    "algorithm": "repomark-merkle-v1",
+    "rootDigest": {
+      "algorithm": "repomark-merkle-v1",
+      "value": "7d9b97b0a701986faef492d2449a0ad99f07f45efc1c9ff506cf2c7cb5f98cf4"
+    },
+    "leafIndex": 0,
+    "totalLeaves": 1,
+    "proof": []
+  },
+  "claimKind": "verified-origin",
+  "issuer": {
+    "id": "https://github.com/anaslari23/repomark",
+    "keyId": "key1",
+    "signatureAlgorithm": "ed25519",
+    "signature": "3045022100a9b8c7d6e5f41234567890abcdef1234567890abcdef1234567890abcdef1202206f5e4d3c2b1a0987654321fedcba0987654321fedcba0987654321fedcba0987"
+  },
+  "sealedAt": "2026-08-15T00:00:00Z"
+}

@@ -1,0 +1,41 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "index.ts",
+      "digest": {
+        "sha256": "600708fefc6e6056e2ac290df6a64ab8d8fc8494d957509776bb23e54930f56d"
+      }
+    }
+  ],
+  "predicateType": "https://repomark.dev/source-origin/v1",
+  "predicate": {
+    "claimKind": "verified-origin",
+    "issuer": {
+      "id": "test-issuer",
+      "keyId": "test-key-id",
+      "signatureAlgorithm": "ed25519",
+      "name": "Test Issuer",
+      "publicKey": "MCowBQYDK2VwAyEAFwb5x2dEkXuGauQcdYG067QBHWCB6QWIkPfhBZC8VUs="
+    },
+    "timestamp": "2026-08-14T20:36:00.686Z",
+    "cleanExport": true,
+    "manifest": {
+      "treeAlgorithm": "repomark-merkle-v1",
+      "canonicalization": "repomark-c14n-v1",
+      "hashAlgorithm": "sha256",
+      "filesCount": 1,
+      "totalBytes": 26,
+      "rootDigest": {
+        "algorithm": "repomark-merkle-v1",
+        "value": "8c9825f6d1cceafb43e322deeef3fbc41b1902a4731962c89f62a40b0c9e98b2"
+      }
+    },
+    "provenance": {
+      "tool": {
+        "name": "repomark",
+        "version": "1.0.0"
+      }
+    }
+  }
+}

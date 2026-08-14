@@ -1,0 +1,16 @@
+{
+  "name": "@repomark/cli",
+  "version": "1.0.0",
+  "description": "RepoMark CLI tool for source code sealing, provenance verification, and deterministic export",
+  "type": "module",
+  "bin": {
+    "repomark": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@repomark/core": "^1.0.0"
+  }
+}

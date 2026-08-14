@@ -1,0 +1,21 @@
+{
+  "name": "@repomark/registry",
+  "version": "1.0.0",
+  "description": "RepoMark reference append-only registry service",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "tsx src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@repomark/core": "*",
+    "express": "^4.19.2",
+    "better-sqlite3": "^11.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/better-sqlite3": "^7.6.11"
+  }
+}

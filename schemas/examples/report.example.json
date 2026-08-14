@@ -1,0 +1,49 @@
+{
+  "_type": "https://repomark.dev/verification-report/v1",
+  "reportVersion": "v1",
+  "verifiedAt": "2026-08-15T00:01:30Z",
+  "target": {
+    "type": "portable-capsule",
+    "path": "src/crypto/signer.ts",
+    "rawDigest": {
+      "algorithm": "sha256",
+      "value": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+    },
+    "textNormalizedDigest": {
+      "algorithm": "sha256-crlf-norm-v1",
+      "value": "a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0"
+    }
+  },
+  "status": "VERIFIED",
+  "claim": {
+    "claimKind": "verified-origin",
+    "isDefaultKind": true,
+    "issuerId": "https://github.com/anaslari23/repomark",
+    "organization": "RepoMark Foundation"
+  },
+  "cryptographicChecks": {
+    "rawDigestMatch": true,
+    "merkleProofValid": true,
+    "signatureValid": true,
+    "signatureAlgorithm": "ed25519",
+    "keyId": "ed25519:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "keyTrustStatus": "TRUSTED",
+    "cleanExportVerified": true
+  },
+  "watermarkAnalysis": {
+    "detected": true,
+    "scheme": "repomark-ast-v1",
+    "confidence": 0.98,
+    "entropy": 4.12,
+    "recoveredRecipientMask": "rcpt_***9a8f",
+    "persistenceRating": "INTACT"
+  },
+  "offlineEvidence": {
+    "networkCallsAttempted": 0,
+    "executionAttempted": false,
+    "offlineVerified": true
+  },
+  "errors": [],
+  "warnings": [],
+  "summary": "Cryptographic provenance verified successfully. Raw byte digest and Merkle inclusion proof matched root. Issuer signature is valid under pinned trusted key. Probabilistic watermark analysis recovered recipient mask rcpt_***9a8f with 98% confidence."
+}

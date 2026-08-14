@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://repomark.dev/schemas/portable-file-v1/capsule.schema.json",
+  "title": "RepoMarkPortableFileCapsuleV1",
+  "description": "Schema for portable, self-contained single-file verification capsules in RepoMark.",
+  "type": "object",
+  "required": [
+    "_type",
+    "capsuleVersion",
+    "file",
+    "membershipProof",
+    "claimKind",
+    "issuer",
+    "sealedAt"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_type": {
+      "type": "string",
+      "const": "https://repomark.dev/portable-file/v1",
+      "description": "Identifies the payload as a RepoMark portable file capsule."
+    },
+    "capsuleVersion": {
+      "type": "string",
+      "const": "v1",
+      "description": "Version of the capsule schema specification."
+    },
+    "file": {
+      "type": "object",
+      "required": ["path", "rawDigest", "size"],
+      "additionalProperties": false,
+      "description": "Target file metadata and cryptographic digest.",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relative canonical path of the file within the sealed export repository."
+        },
+        "rawDigest": {
+          "type": "object",
+          "required": ["algorithm", "value"],
+          "additionalProperties": false,
+          "description": "Cryptographic digest computed strictly over raw bytes (no line ending normalization).",
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "enum": ["sha256", "sha512"],
+              "description": "Named raw hash algorithm."
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64,128}$",
+              "description": "Hex-encoded raw byte digest."
+            }
+          }
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "File size in raw bytes."
+        },
+        "textNormalizedDigest": {
+          "type": "object",
+          "required": ["algorithm", "value"],
+          "additionalProperties": false,
+          "description": "Optional diagnostic-only text-normalized digest. Never a substitute for rawDigest.",
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "enum": ["sha256-crlf-norm-v1", "sha256-ws-norm-v1"],
+              "description": "Named diagnostic normalization algorithm."
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "description": "Hex-encoded normalized digest."
+            }
+          }
+        }
+      }
+    },
+    "membershipProof": {
+      "type": "object",
+      "required": ["algorithm", "rootDigest", "leafIndex", "totalLeaves", "proof"],
+      "additionalProperties": false,
+      "description": "Merkle tree inclusion proof proving this file is part of the sealed root digest.",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": ["repomark-merkle-v1"],
+          "description": "Named Merkle tree proof algorithm."
+        },
+        "rootDigest": {
+          "type": "object",
+          "required": ["algorithm", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "enum": ["repomark-merkle-v1", "sha256", "sha512"]
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64,128}$"
+            }
+          }
+        },
+        "leafIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based leaf index in the sorted canonical Merkle tree."
+        },
+        "totalLeaves": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total leaf count in the Merkle tree."
+        },
+        "proof": {
+          "type": "array",
+          "description": "Ordered array of sibling Merkle node hashes.",
+          "items": {
+            "type": "object",
+            "required": ["position", "digest"],
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "string",
+                "enum": ["left", "right"]
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "claimKind": {
+      "type": "string",
+      "enum": ["verified-origin", "original-author", "organization-origin"],
+      "description": "Claim kind attested by the issuer."
+    },
+    "issuer": {
+      "type": "object",
+      "required": ["id", "keyId", "signatureAlgorithm", "signature"],
+      "additionalProperties": false,
+      "description": "Issuer identity and cryptographic signature over the root digest / statement.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "keyId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signatureAlgorithm": {
+          "type": "string",
+          "enum": ["ed25519", "ecdsa-p256-sha256", "rsa-pss-sha256"]
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64,1024}$|^[A-Za-z0-9+/=]{44,1024}$",
+          "description": "Hex or Base64 encoded digital signature."
+        },
+        "publicKey": {
+          "type": "string"
+        }
+      }
+    },
+    "statementRef": {
+      "type": "object",
+      "required": ["statementDigest"],
+      "additionalProperties": false,
+      "description": "Reference or embedded payload of the original source-origin statement.",
+      "properties": {
+        "statementDigest": {
+          "type": "object",
+          "required": ["algorithm", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "algorithm": {
+              "type": "string",
+              "enum": ["sha256", "sha512"]
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64,128}$"
+            }
+          }
+        },
+        "statementUri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "watermarkContext": {
+      "type": "object",
+      "required": ["scheme"],
+      "additionalProperties": false,
+      "description": "Optional watermark metadata for tracking and attribution persistence.",
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": ["repomark-ast-v1", "repomark-token-v1", "none"]
+        },
+        "recipientMask": {
+          "type": "string"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      }
+    },
+    "sealedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp of original sealing."
+    }
+  }
+}

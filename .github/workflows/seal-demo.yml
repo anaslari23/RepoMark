@@ -1,0 +1,74 @@
+name: RepoMark Seal (Demo / KMS Mock)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  seal-and-publish:
+    name: Seal and Publish Provenance
+    runs-on: ubuntu-latest
+    
+    # In a real environment, permissions would be needed for OIDC/KMS:
+    # permissions:
+    #   id-token: write
+    #   contents: read
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
+
+      # Simulate a clean archive of the repo (avoiding untracked/git files)
+      - name: Create Clean Archive
+        run: |
+          git archive -o source-export.zip HEAD
+          unzip source-export.zip -d source-export/
+          rm source-export.zip
+
+      - name: Seal Directory (using KMS Mock)
+        env:
+          # REQUIRED: explicitly allow the mock signer
+          REPOMARK_ALLOW_MOCK_SIGNER: 'true'
+        run: |
+          # Replace 'npx tsx packages/cli/src/index.ts' with 'repomark' in real usage
+          npx tsx packages/cli/src/index.ts seal \\
+            --dir source-export/ \\
+            --signer kms-mock \\
+            --issuer-name "GitHub Actions Demo Signer" \\
+            --claim verified-origin
+
+      - name: Pack Deterministic ZIP
+        run: |
+          npx tsx packages/cli/src/index.ts export \\
+            --dir source-export/ \\
+            --out repomark-sealed-source.zip
+
+      - name: Verify Strict
+        run: |
+          npx tsx packages/cli/src/index.ts verify \\
+            --target repomark-sealed-source.zip \\
+            --trust source-export/.repomark/trust.json
+
+      # In a real workflow, you would attest and upload:
+      # - name: Generate GitHub Attestation
+      #   uses: actions/attest@v4
+      #   with:
+      #     subject-path: repomark-sealed-source.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: repomark-sealed-source
+          path: repomark-sealed-source.zip

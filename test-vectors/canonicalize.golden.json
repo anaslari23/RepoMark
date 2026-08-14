@@ -1,0 +1,41 @@
+{
+  "description": "RFC 8785 JSON Canonicalization Scheme (JCS) golden test vectors",
+  "vectors": [
+    {
+      "input": {
+        "b": 2,
+        "a": 1,
+        "c": 3
+      },
+      "expected": "{\"a\":1,\"b\":2,\"c\":3}"
+    },
+    {
+      "input": {
+        "numbers": [3, 2, 1],
+        "nested": {
+          "zebra": true,
+          "apple": false
+        }
+      },
+      "expected": "{\"nested\":{\"apple\":false,\"zebra\":true},\"numbers\":[3,2,1]}"
+    },
+    {
+      "input": {
+        "unicode": "hello \u0000 world",
+        "quote": "hello \"world\""
+      },
+      "expected": "{\"quote\":\"hello \\\"world\\\"\",\"unicode\":\"hello \\u0000 world\"}"
+    }
+  ],
+  "strictJsonVectors": [
+    {
+      "json": "{\"key\": 1, \"key\": 2}",
+      "shouldReject": true,
+      "reason": "Duplicate key rejection"
+    },
+    {
+      "json": "{\"valid\": true, \"count\": 42}",
+      "shouldReject": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "src/index.ts",
+      "digest": {
+        "md5": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    }
+  ],
+  "predicateType": "https://repomark.dev/source-origin/v1",
+  "predicate": {
+    "claimKind": "verified-origin",
+    "issuer": {
+      "id": "https://github.com/anaslari23/repomark",
+      "keyId": "key1",
+      "signatureAlgorithm": "ed25519"
+    },
+    "timestamp": "2026-08-15T00:00:00Z",
+    "cleanExport": true,
+    "manifest": {
+      "treeAlgorithm": "repomark-merkle-v1",
+      "canonicalization": "repomark-c14n-v1",
+      "hashAlgorithm": "sha256",
+      "filesCount": 1,
+      "totalBytes": 100,
+      "rootDigest": {
+        "algorithm": "repomark-merkle-v1",
+        "value": "7d9b97b0a701986faef492d2449a0ad99f07f45efc1c9ff506cf2c7cb5f98cf4"
+      }
+    }
+  }
+}

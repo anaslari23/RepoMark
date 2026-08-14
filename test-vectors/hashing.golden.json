@@ -1,0 +1,54 @@
+{
+  "description": "Golden test vectors for RepoMark raw byte hashing and path normalization (v1)",
+  "hashing": [
+    {
+      "inputUtf8": "",
+      "algorithm": "sha256",
+      "expectedDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "inputUtf8": "console.log('Hello RepoMark');\n",
+      "algorithm": "sha256",
+      "expectedDigest": "df9fac56419dcaae63ed251a96b04444a7efdbe6fd7516dc40af48efedbcfb23"
+    },
+    {
+      "inputUtf8": "Line 1\r\nLine 2\r\n",
+      "algorithm": "sha256",
+      "expectedDigest": "3a99d8bc2bee33c80cf8af8a1ba3538226ad11f4a10681686da455f515e1d08d",
+      "note": "Raw bytes digest MUST differ from LF-only digest to guarantee security invariant"
+    },
+    {
+      "inputUtf8": "Line 1\nLine 2\n",
+      "algorithm": "sha256",
+      "expectedDigest": "8661d1b8fb7c356fe741f38428cf7329e727d9e484820ca400d64c5388d55320"
+    }
+  ],
+  "pathNormalization": [
+    {
+      "raw": "src\\crypto\\signer.ts",
+      "expected": "src/crypto/signer.ts"
+    },
+    {
+      "raw": "./packages/core/src/index.ts",
+      "expected": "packages/core/src/index.ts"
+    },
+    {
+      "raw": "/schemas/statement.json",
+      "expected": "schemas/statement.json"
+    },
+    {
+      "raw": "docs/specs/claim.md/",
+      "expected": "docs/specs/claim.md"
+    },
+    {
+      "raw": "src/../secret.ts",
+      "shouldThrow": true,
+      "reason": "Path traversal segment '..' is prohibited"
+    },
+    {
+      "raw": "src/\u0000evil.ts",
+      "shouldThrow": true,
+      "reason": "Control character rejection"
+    }
+  ]
+}

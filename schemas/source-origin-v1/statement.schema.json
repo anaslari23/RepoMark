@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://repomark.dev/schemas/source-origin-v1/statement.schema.json",
+  "title": "RepoMarkSourceOriginStatementV1",
+  "description": "in-toto v1 compliant Statement schema for RepoMark source origin attestations.",
+  "type": "object",
+  "required": ["_type", "subject", "predicateType", "predicate"],
+  "additionalProperties": false,
+  "properties": {
+    "_type": {
+      "type": "string",
+      "const": "https://in-toto.io/Statement/v1",
+      "description": "Identifies the document as an in-toto v1 Statement."
+    },
+    "subject": {
+      "type": "array",
+      "description": "Array of software artifacts/files covered by this statement with raw byte cryptographic digests.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "digest"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Relative file path or artifact identifier within the clean export."
+          },
+          "digest": {
+            "type": "object",
+            "description": "Cryptographic digest map computed over raw bytes without line ending normalization.",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$",
+                "description": "Hex-encoded SHA-256 raw byte digest."
+              },
+              "sha512": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{128}$",
+                "description": "Hex-encoded SHA-512 raw byte digest."
+              },
+              "repomark-merkle-v1": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$",
+                "description": "Hex-encoded Merkle root hash for directory/set subjects."
+              }
+            }
+          }
+        }
+      }
+    },
+    "predicateType": {
+      "type": "string",
+      "const": "https://repomark.dev/source-origin/v1",
+      "description": "Identifies the RepoMark source-origin v1 predicate type."
+    },
+    "predicate": {
+      "type": "object",
+      "description": "The RepoMark source-origin attestation predicate payload.",
+      "required": ["claimKind", "issuer", "timestamp", "cleanExport", "manifest"],
+      "additionalProperties": false,
+      "properties": {
+        "claimKind": {
+          "type": "string",
+          "enum": ["verified-origin", "original-author", "organization-origin"],
+          "default": "verified-origin",
+          "description": "The specific claim kind. Defaults to verified-origin."
+        },
+        "issuer": {
+          "type": "object",
+          "required": ["id", "keyId", "signatureAlgorithm"],
+          "additionalProperties": false,
+          "description": "Identity and cryptographic key metadata of the statement issuer.",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unique identifier of the issuing identity (e.g. URI, DID, or entity identifier)."
+            },
+            "keyId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Fingerprint or identifier of the cryptographic public key used for verification."
+            },
+            "signatureAlgorithm": {
+              "type": "string",
+              "enum": ["ed25519", "ecdsa-p256-sha256", "rsa-pss-sha256"],
+              "description": "Named and versioned cryptographic signature algorithm."
+            },
+            "name": {
+              "type": "string",
+              "description": "Human-readable name of the issuer."
+            },
+            "organization": {
+              "type": "string",
+              "description": "Organization or entity name responsible for the issuance."
+            },
+            "publicKey": {
+              "type": "string",
+              "description": "Base64 or multicodec encoded public key or JWK representation."
+            }
+          }
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 UTC timestamp when the statement was generated and sealed."
+        },
+        "cleanExport": {
+          "type": "boolean",
+          "const": true,
+          "description": "Must be true. Sealing only ever operates on a clean export, never on dirty or mutating workspace trees."
+        },
+        "manifest": {
+          "type": "object",
+          "required": ["treeAlgorithm", "canonicalization", "hashAlgorithm", "filesCount", "totalBytes", "rootDigest"],
+          "additionalProperties": false,
+          "description": "Manifest summary of the sealed file set.",
+          "properties": {
+            "treeAlgorithm": {
+              "type": "string",
+              "enum": ["repomark-merkle-v1"],
+              "description": "Named and versioned Merkle tree hashing algorithm."
+            },
+            "canonicalization": {
+              "type": "string",
+              "enum": ["repomark-c14n-v1"],
+              "description": "Named and versioned canonical path and manifest serialization algorithm."
+            },
+            "hashAlgorithm": {
+              "type": "string",
+              "enum": ["sha256", "sha512"],
+              "description": "Named and versioned raw byte hashing algorithm."
+            },
+            "filesCount": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Total number of subject files included in the sealed export."
+            },
+            "totalBytes": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total raw byte count across all subject files."
+            },
+            "rootDigest": {
+              "type": "object",
+              "required": ["algorithm", "value"],
+              "additionalProperties": false,
+              "properties": {
+                "algorithm": {
+                  "type": "string",
+                  "enum": ["repomark-merkle-v1", "sha256", "sha512"]
+                },
+                "value": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{64,128}$",
+                  "description": "Hex-encoded root digest."
+                }
+              }
+            }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Optional VCS and build tool provenance metadata.",
+          "properties": {
+            "vcs": {
+              "type": "object",
+              "required": ["type", "revision"],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["git"]
+                },
+                "repository": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "revision": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{40,64}$",
+                  "description": "Immutable VCS commit hash."
+                },
+                "tag": {
+                  "type": "string"
+                },
+                "branch": {
+                  "type": "string"
+                }
+              }
+            },
+            "tool": {
+              "type": "object",
+              "required": ["name", "version"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "const": "repomark"
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+                }
+              }
+            }
+          }
+        },
+        "watermark": {
+          "type": "object",
+          "required": ["enabled", "scheme"],
+          "additionalProperties": false,
+          "description": "Optional metadata when watermarking has been applied during distribution.",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "scheme": {
+              "type": "string",
+              "enum": ["repomark-ast-v1", "repomark-token-v1", "none"]
+            },
+            "recipientMask": {
+              "type": "string",
+              "description": "Masked or blinded recipient identifier for leak tracking verification."
+            },
+            "appliedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Distribution or licensing constraints attached to the sealed artifact.",
+          "properties": {
+            "license": {
+              "type": "string",
+              "description": "SPDX license expression or reference."
+            },
+            "permittedUses": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

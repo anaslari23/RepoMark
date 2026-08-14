@@ -1,0 +1,36 @@
+{
+  "_type": "https://repomark.dev/verification-report/v1",
+  "reportVersion": "v1",
+  "verifiedAt": "2026-08-15T00:01:30Z",
+  "target": {
+    "type": "single-file",
+    "path": "src/crypto/signer.ts",
+    "rawDigest": {
+      "algorithm": "sha256",
+      "value": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+    }
+  },
+  "status": "VERIFIED",
+  "claim": {
+    "claimKind": "verified-origin",
+    "isDefaultKind": true,
+    "issuerId": "https://github.com/anaslari23/repomark"
+  },
+  "cryptographicChecks": {
+    "rawDigestMatch": true,
+    "merkleProofValid": null,
+    "signatureValid": true,
+    "signatureAlgorithm": "ed25519",
+    "keyId": "key1",
+    "keyTrustStatus": "TRUSTED",
+    "cleanExportVerified": true
+  },
+  "offlineEvidence": {
+    "networkCallsAttempted": 2,
+    "executionAttempted": false,
+    "offlineVerified": true
+  },
+  "errors": [],
+  "warnings": [],
+  "summary": "Should fail validation because networkCallsAttempted is greater than 0."
+}

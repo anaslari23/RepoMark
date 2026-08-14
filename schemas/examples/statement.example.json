@@ -1,0 +1,69 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "src/index.ts",
+      "digest": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "src/crypto/signer.ts",
+      "digest": {
+        "sha256": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+      }
+    },
+    {
+      "name": "package.json",
+      "digest": {
+        "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+      }
+    }
+  ],
+  "predicateType": "https://repomark.dev/source-origin/v1",
+  "predicate": {
+    "claimKind": "verified-origin",
+    "issuer": {
+      "id": "https://github.com/anaslari23/repomark",
+      "keyId": "ed25519:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+      "signatureAlgorithm": "ed25519",
+      "name": "RepoMark Core Team",
+      "organization": "RepoMark Foundation",
+      "publicKey": "11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo="
+    },
+    "timestamp": "2026-08-15T00:00:00Z",
+    "cleanExport": true,
+    "manifest": {
+      "treeAlgorithm": "repomark-merkle-v1",
+      "canonicalization": "repomark-c14n-v1",
+      "hashAlgorithm": "sha256",
+      "filesCount": 3,
+      "totalBytes": 4096,
+      "rootDigest": {
+        "algorithm": "repomark-merkle-v1",
+        "value": "7d9b97b0a701986faef492d2449a0ad99f07f45efc1c9ff506cf2c7cb5f98cf4"
+      }
+    },
+    "provenance": {
+      "vcs": {
+        "type": "git",
+        "repository": "https://github.com/anaslari23/repomark.git",
+        "revision": "d118486c693c4c62d2e42a52b1e3b0e1a12a3f48",
+        "tag": "v1.0.0",
+        "branch": "main"
+      },
+      "tool": {
+        "name": "repomark",
+        "version": "1.0.0"
+      }
+    },
+    "watermark": {
+      "enabled": false,
+      "scheme": "none"
+    },
+    "policy": {
+      "license": "Apache-2.0",
+      "permittedUses": ["commercial", "verification", "derivative-tracking"]
+    }
+  }
+}

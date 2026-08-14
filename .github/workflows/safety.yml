@@ -1,0 +1,18 @@
+name: RepoMark Enforcement
+
+on:
+  pull_request:
+    branches: [ "main", "master" ]
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  repomark:
+    # Call the reusable workflow we placed in your organization's .github repo
+    uses: anaslari23/anas-verify.github/.github/workflows/repomark-safety-check.yml@main
+    with:
+      # If this is a Pull Request, verify the provenance. 
+      # If it's a direct push or merge to main, seal the codebase.
+      action: ${{ github.event_name == 'pull_request' && 'verify' || 'seal' }}
+    secrets:
+      KMS_KEY_ID: ${{ secrets.KMS_KEY_ID }}

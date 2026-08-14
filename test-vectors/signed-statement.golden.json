@@ -1,0 +1,86 @@
+{
+  "description": "Signed statement and DSSE envelope golden test vector",
+  "keyPair": {
+    "keyId": "ed25519:4521e56be4ce63fc7b4ae4ccf2fc80dd9d87197fec9527cce2c5223e4d363a77",
+    "publicKey": "4+kxvUPzgIowKW6WzjlVDmR9N/aTqljVrg0qtiTYFSA=",
+    "algorithm": "ed25519"
+  },
+  "statement": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "subject": [
+      {
+        "name": "src/index.ts",
+        "digest": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "src/crypto/signer.ts",
+        "digest": {
+          "sha256": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+        }
+      }
+    ],
+    "predicateType": "https://repomark.dev/source-origin/v1",
+    "predicate": {
+      "claimKind": "verified-origin",
+      "issuer": {
+        "id": "https://github.com/anaslari23/repomark",
+        "keyId": "ed25519:4521e56be4ce63fc7b4ae4ccf2fc80dd9d87197fec9527cce2c5223e4d363a77",
+        "signatureAlgorithm": "ed25519",
+        "name": "RepoMark Core Team",
+        "organization": "RepoMark Foundation",
+        "publicKey": "4+kxvUPzgIowKW6WzjlVDmR9N/aTqljVrg0qtiTYFSA="
+      },
+      "timestamp": "2026-08-15T00:00:00Z",
+      "cleanExport": true,
+      "manifest": {
+        "treeAlgorithm": "repomark-merkle-v1",
+        "canonicalization": "repomark-c14n-v1",
+        "hashAlgorithm": "sha256",
+        "filesCount": 2,
+        "totalBytes": 600,
+        "rootDigest": {
+          "algorithm": "repomark-merkle-v1",
+          "value": "880bfd976548b62a7404faa56cd3795da1261df7075b8332ad1a620dbc18957d"
+        }
+      },
+      "provenance": {
+        "vcs": {
+          "type": "git",
+          "repository": "https://github.com/anaslari23/repomark.git",
+          "revision": "d118486c693c4c62d2e42a52b1e3b0e1a12a3f48"
+        },
+        "tool": {
+          "name": "repomark",
+          "version": "1.0.0"
+        }
+      }
+    }
+  },
+  "envelope": {
+    "payloadType": "application/vnd.in-toto+json",
+    "payload": "eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjEiLCJwcmVkaWNhdGUiOnsiY2xhaW1LaW5kIjoidmVyaWZpZWQtb3JpZ2luIiwiY2xlYW5FeHBvcnQiOnRydWUsImlzc3VlciI6eyJpZCI6Imh0dHBzOi8vZ2l0aHViLmNvbS9hbmFzbGFyaTIzL3JlcG9tYXJrIiwia2V5SWQiOiJlZDI1NTE5OjQ1MjFlNTZiZTRjZTYzZmM3YjRhZTRjY2YyZmM4MGRkOWQ4NzE5N2ZlYzk1MjdjY2UyYzUyMjNlNGQzNjNhNzciLCJuYW1lIjoiUmVwb01hcmsgQ29yZSBUZWFtIiwib3JnYW5pemF0aW9uIjoiUmVwb01hcmsgRm91bmRhdGlvbiIsInB1YmxpY0tleSI6IjQra3h2VVB6Z0lvd0tXNld6amxWRG1SOU4vYVRxbGpWcmcwcXRpVFlGU0E9Iiwic2lnbmF0dXJlQWxnb3JpdGhtIjoiZWQyNTUxOSJ9LCJtYW5pZmVzdCI6eyJjYW5vbmljYWxpemF0aW9uIjoicmVwb21hcmstYzE0bi12MSIsImZpbGVzQ291bnQiOjIsImhhc2hBbGdvcml0aG0iOiJzaGEyNTYiLCJyb290RGlnZXN0Ijp7ImFsZ29yaXRobSI6InJlcG9tYXJrLW1lcmtsZS12MSIsInZhbHVlIjoiODgwYmZkOTc2NTQ4YjYyYTc0MDRmYWE1NmNkMzc5NWRhMTI2MWRmNzA3NWI4MzMyYWQxYTYyMGRiYzE4OTU3ZCJ9LCJ0b3RhbEJ5dGVzIjo2MDAsInRyZWVBbGdvcml0aG0iOiJyZXBvbWFyay1tZXJrbGUtdjEifSwicHJvdmVuYW5jZSI6eyJ0b29sIjp7Im5hbWUiOiJyZXBvbWFyayIsInZlcnNpb24iOiIxLjAuMCJ9LCJ2Y3MiOnsicmVwb3NpdG9yeSI6Imh0dHBzOi8vZ2l0aHViLmNvbS9hbmFzbGFyaTIzL3JlcG9tYXJrLmdpdCIsInJldmlzaW9uIjoiZDExODQ4NmM2OTNjNGM2MmQyZTQyYTUyYjFlM2IwZTFhMTJhM2Y0OCIsInR5cGUiOiJnaXQifX0sInRpbWVzdGFtcCI6IjIwMjYtMDgtMTVUMDA6MDA6MDBaIn0sInByZWRpY2F0ZVR5cGUiOiJodHRwczovL3JlcG9tYXJrLmRldi9zb3VyY2Utb3JpZ2luL3YxIiwic3ViamVjdCI6W3siZGlnZXN0Ijp7InNoYTI1NiI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifSwibmFtZSI6InNyYy9pbmRleC50cyJ9LHsiZGlnZXN0Ijp7InNoYTI1NiI6IjhmNDM0MzQ2NjQ4ZjZiOTZkZjg5ZGRhOTAxYzUxNzZiMTBhNmQ4Mzk2MWRkM2MxYWM4OGI1OWIyZGMzMjdhYTQifSwibmFtZSI6InNyYy9jcnlwdG8vc2lnbmVyLnRzIn1dfQ==",
+    "signatures": [
+      {
+        "keyid": "ed25519:4521e56be4ce63fc7b4ae4ccf2fc80dd9d87197fec9527cce2c5223e4d363a77",
+        "sig": "e023a953b02a6d2259357970ac40d0233f2b725123484c4424a46c3b7a31c718f050cf55ec1694184e3ccdc7b1102cd6d52afe1fedcaaebd69c97d64f8a76604"
+      }
+    ]
+  },
+  "trustSnapshot": {
+    "snapshotVersion": "v1",
+    "updatedAt": "2026-08-15T00:00:00Z",
+    "trustedKeys": {
+      "ed25519:4521e56be4ce63fc7b4ae4ccf2fc80dd9d87197fec9527cce2c5223e4d363a77": {
+        "keyId": "ed25519:4521e56be4ce63fc7b4ae4ccf2fc80dd9d87197fec9527cce2c5223e4d363a77",
+        "publicKey": "4+kxvUPzgIowKW6WzjlVDmR9N/aTqljVrg0qtiTYFSA=",
+        "algorithm": "ed25519",
+        "owner": "RepoMark Core Team",
+        "status": "active"
+      }
+    }
+  },
+  "expectedVerificationState": "verified-exact",
+  "expectedEvidenceDigest": "2ce87fa7d72af63354f8a48743c4f66744e5725aebc975ad8a3e3f3ba604a240"
+}

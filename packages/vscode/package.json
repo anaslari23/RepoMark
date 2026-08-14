@@ -1,0 +1,41 @@
+{
+  "name": "repomark-vscode",
+  "displayName": "RepoMark Cryptographic Provenance",
+  "description": "Deterministic cryptographic source provenance and integrity verifier for VS Code",
+  "version": "1.0.0",
+  "publisher": "repomark",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:.repomark/statement.json",
+    "workspaceContains:.repomark/envelope.json"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "repomark.verifyWorkspace",
+        "title": "RepoMark: Verify Workspace Provenance"
+      },
+      {
+        "command": "repomark.showEvidence",
+        "title": "RepoMark: Show Provenance Evidence"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@repomark/core": "^1.0.0",
+    "vscode-languageclient": "^10.1.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0"
+  }
+}

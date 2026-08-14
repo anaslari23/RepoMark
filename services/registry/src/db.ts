@@ -1,0 +1,76 @@
+import Database from 'better-sqlite3';
+
+export interface IssuanceRecord {
+  digest: string;
+  signature: string;
+  issuerId: string;
+  metadata: string; // JSON string
+  insertedAt: string;
+}
+
+export interface RegistryStore {
+  insertRecord(record: Omit<IssuanceRecord, 'insertedAt'>): void;
+  getRecord(digest: string): IssuanceRecord | undefined;
+}
+
+export class SQLiteRegistryStore implements RegistryStore {
+  private db: Database.Database;
+
+  constructor(dbPath: string = ':memory:') {
+    this.db = new Database(dbPath);
+    this.initSchema();
+  }
+
+  private initSchema() {
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS statement_records_v1 (
+        digest TEXT PRIMARY KEY,
+        signature TEXT NOT NULL,
+        issuerId TEXT NOT NULL,
+        metadata TEXT NOT NULL,
+        insertedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Enforce append-only at the database layer using triggers
+    this.db.exec(`
+      CREATE TRIGGER IF NOT EXISTS prevent_update_statement_records_v1
+      BEFORE UPDATE ON statement_records_v1
+      BEGIN
+        SELECT RAISE(ABORT, 'UPDATE not allowed on append-only registry table');
+      END;
+    `);
+
+    this.db.exec(`
+      CREATE TRIGGER IF NOT EXISTS prevent_delete_statement_records_v1
+      BEFORE DELETE ON statement_records_v1
+      BEGIN
+        SELECT RAISE(ABORT, 'DELETE not allowed on append-only registry table');
+      END;
+    `);
+  }
+
+  insertRecord(record: Omit<IssuanceRecord, 'insertedAt'>): void {
+    const stmt = this.db.prepare(`
+      INSERT INTO statement_records_v1 (digest, signature, issuerId, metadata)
+      VALUES (@digest, @signature, @issuerId, @metadata)
+    `);
+    
+    stmt.run({
+      digest: record.digest,
+      signature: record.signature,
+      issuerId: record.issuerId,
+      metadata: record.metadata
+    });
+  }
+
+  getRecord(digest: string): IssuanceRecord | undefined {
+    const stmt = this.db.prepare(`
+      SELECT digest, signature, issuerId, metadata, insertedAt 
+      FROM statement_records_v1 
+      WHERE digest = ?
+    `);
+    
+    return stmt.get(digest) as IssuanceRecord | undefined;
+  }
+}

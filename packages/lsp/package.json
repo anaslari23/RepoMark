@@ -1,0 +1,18 @@
+{
+  "name": "@repomark/lsp",
+  "version": "1.0.0",
+  "description": "Language Server Protocol implementation for RepoMark verification",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@repomark/core": "^1.0.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "vscode-languageserver": "^10.1.0",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  }
+}

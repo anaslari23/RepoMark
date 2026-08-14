@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "snapshotAt": "2026-08-14T20:36:00.689Z",
+  "trustedKeys": {
+    "test-key-id": {
+      "status": "trusted",
+      "trustedAt": "2026-08-14T20:36:00.689Z"
+    }
+  }
+}

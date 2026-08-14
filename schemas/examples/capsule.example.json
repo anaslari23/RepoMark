@@ -1,0 +1,56 @@
+{
+  "_type": "https://repomark.dev/portable-file/v1",
+  "capsuleVersion": "v1",
+  "file": {
+    "path": "src/crypto/signer.ts",
+    "rawDigest": {
+      "algorithm": "sha256",
+      "value": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4"
+    },
+    "size": 1420,
+    "textNormalizedDigest": {
+      "algorithm": "sha256-crlf-norm-v1",
+      "value": "a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0"
+    }
+  },
+  "membershipProof": {
+    "algorithm": "repomark-merkle-v1",
+    "rootDigest": {
+      "algorithm": "repomark-merkle-v1",
+      "value": "7d9b97b0a701986faef492d2449a0ad99f07f45efc1c9ff506cf2c7cb5f98cf4"
+    },
+    "leafIndex": 1,
+    "totalLeaves": 3,
+    "proof": [
+      {
+        "position": "left",
+        "digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "position": "right",
+        "digest": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+      }
+    ]
+  },
+  "claimKind": "verified-origin",
+  "issuer": {
+    "id": "https://github.com/anaslari23/repomark",
+    "keyId": "ed25519:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "signatureAlgorithm": "ed25519",
+    "signature": "3045022100a9b8c7d6e5f41234567890abcdef1234567890abcdef1234567890abcdef1202206f5e4d3c2b1a0987654321fedcba0987654321fedcba0987654321fedcba0987",
+    "publicKey": "11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo="
+  },
+  "statementRef": {
+    "statementDigest": {
+      "algorithm": "sha256",
+      "value": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+    },
+    "statementUri": "https://repomark.dev/statements/7d9b97b0a701986faef492d2449a0ad99f07f45efc1c9ff506cf2c7cb5f98cf4.json"
+  },
+  "watermarkContext": {
+    "scheme": "repomark-ast-v1",
+    "recipientMask": "rcpt_***9a8f",
+    "confidence": 0.98
+  },
+  "sealedAt": "2026-08-15T00:00:00Z"
+}

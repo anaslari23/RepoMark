@@ -1,0 +1,1 @@
+{"version":3,"file":"permutation.d.ts","sourceRoot":"","sources":["../../src/embedder/permutation.ts"],"names":[],"mappings":"AAEA;;;;GAIG;AACH,qBAAa,eAAe;IAC1B,OAAO,CAAC,KAAK,CAAS;IACtB,OAAO,CAAC,OAAO,CAAa;gBAEhB,WAAW,EAAE,MAAM,GAAG,MAAM,EAAE,eAAe,EAAE,MAAM;IAOjE;;OAEG;IACH,UAAU,IAAI,MAAM;IAapB;;OAEG;IACH,mBAAmB,CAAC,CAAC,EAAE,MAAM,GAAG,MAAM,EAAE;CAgBzC"}

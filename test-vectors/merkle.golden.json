@@ -1,0 +1,138 @@
+{
+  "description": "repomark-merkle-v1 deterministic Merkle tree golden test vectors",
+  "emptyRoot": "4510e225cca95a66f18762bed2bb7b3ea019666468067b6b42f241f99969d1ca",
+  "singleFile": {
+    "files": [
+      {
+        "path": "src/index.ts",
+        "rawDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 100
+      }
+    ],
+    "rootDigest": "cb5a155e21e5fa330961420a617b580ffb89c30b918db35304eed217313c67c2",
+    "proof": {
+      "algorithm": "repomark-merkle-v1",
+      "rootDigest": "cb5a155e21e5fa330961420a617b580ffb89c30b918db35304eed217313c67c2",
+      "leafIndex": 0,
+      "totalLeaves": 1,
+      "path": "src/index.ts",
+      "leafDigest": "cb5a155e21e5fa330961420a617b580ffb89c30b918db35304eed217313c67c2",
+      "proof": []
+    }
+  },
+  "twoFiles": {
+    "files": [
+      {
+        "path": "src/a.ts",
+        "rawDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 50
+      },
+      {
+        "path": "src/b.ts",
+        "rawDigest": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4",
+        "size": 60
+      }
+    ],
+    "rootDigest": "b1da8dddba44a6ce9be41df6d49ff23b81333abf7c945fff6b0b16918fb8ffb3",
+    "proofA": {
+      "algorithm": "repomark-merkle-v1",
+      "rootDigest": "b1da8dddba44a6ce9be41df6d49ff23b81333abf7c945fff6b0b16918fb8ffb3",
+      "leafIndex": 0,
+      "totalLeaves": 2,
+      "path": "src/a.ts",
+      "leafDigest": "7a70938e9e3889d3014e0eca5b5361546dcdab67bddd6f7e57b34b7c9ba076e3",
+      "proof": [
+        {
+          "position": "right",
+          "digest": "d0ff2553909bd37c4611fc5426caaca3a92092ddba252f4b67da862b325ef8bf"
+        }
+      ]
+    },
+    "proofB": {
+      "algorithm": "repomark-merkle-v1",
+      "rootDigest": "b1da8dddba44a6ce9be41df6d49ff23b81333abf7c945fff6b0b16918fb8ffb3",
+      "leafIndex": 1,
+      "totalLeaves": 2,
+      "path": "src/b.ts",
+      "leafDigest": "d0ff2553909bd37c4611fc5426caaca3a92092ddba252f4b67da862b325ef8bf",
+      "proof": [
+        {
+          "position": "left",
+          "digest": "7a70938e9e3889d3014e0eca5b5361546dcdab67bddd6f7e57b34b7c9ba076e3"
+        }
+      ]
+    }
+  },
+  "threeFilesOdd": {
+    "files": [
+      {
+        "path": "src/a.ts",
+        "rawDigest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 50
+      },
+      {
+        "path": "src/b.ts",
+        "rawDigest": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4",
+        "size": 60
+      },
+      {
+        "path": "package.json",
+        "rawDigest": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+        "size": 200
+      }
+    ],
+    "rootDigest": "e569b1596190dd27dcd4f782ff755aca7780d02865447846b3597c2790379313",
+    "proofs": {
+      "package.json": {
+        "algorithm": "repomark-merkle-v1",
+        "rootDigest": "e569b1596190dd27dcd4f782ff755aca7780d02865447846b3597c2790379313",
+        "leafIndex": 0,
+        "totalLeaves": 3,
+        "path": "package.json",
+        "leafDigest": "722f4374e451d718fac65f638fa72c0dee541fc52d79e05f7fe644336a6b1eea",
+        "proof": [
+          {
+            "position": "right",
+            "digest": "7a70938e9e3889d3014e0eca5b5361546dcdab67bddd6f7e57b34b7c9ba076e3"
+          },
+          {
+            "position": "right",
+            "digest": "d0ff2553909bd37c4611fc5426caaca3a92092ddba252f4b67da862b325ef8bf"
+          }
+        ]
+      },
+      "src/a.ts": {
+        "algorithm": "repomark-merkle-v1",
+        "rootDigest": "e569b1596190dd27dcd4f782ff755aca7780d02865447846b3597c2790379313",
+        "leafIndex": 1,
+        "totalLeaves": 3,
+        "path": "src/a.ts",
+        "leafDigest": "7a70938e9e3889d3014e0eca5b5361546dcdab67bddd6f7e57b34b7c9ba076e3",
+        "proof": [
+          {
+            "position": "left",
+            "digest": "722f4374e451d718fac65f638fa72c0dee541fc52d79e05f7fe644336a6b1eea"
+          },
+          {
+            "position": "right",
+            "digest": "d0ff2553909bd37c4611fc5426caaca3a92092ddba252f4b67da862b325ef8bf"
+          }
+        ]
+      },
+      "src/b.ts": {
+        "algorithm": "repomark-merkle-v1",
+        "rootDigest": "e569b1596190dd27dcd4f782ff755aca7780d02865447846b3597c2790379313",
+        "leafIndex": 2,
+        "totalLeaves": 3,
+        "path": "src/b.ts",
+        "leafDigest": "d0ff2553909bd37c4611fc5426caaca3a92092ddba252f4b67da862b325ef8bf",
+        "proof": [
+          {
+            "position": "left",
+            "digest": "f2883cc4db2b50e530e41e510eee63bce89003cc8b0bd026acf36c20ee6a5164"
+          }
+        ]
+      }
+    }
+  }
+}
