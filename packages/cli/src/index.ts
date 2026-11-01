@@ -227,7 +227,7 @@ export function cmdSeal(options: Record<string, string | boolean>): void {
       owner: (options['issuer-name'] as string) || 'Mock CI Workload Identity',
       status: 'active'
     };
-    fs.writeFileSync(trustPath, JSON.stringify(trust, null, 2) + '\\n');
+    fs.writeFileSync(trustPath, JSON.stringify(trust, null, 2) + '\n');
   } else {
     let privKeyPem: string;
     if (fs.existsSync(privKeyPath)) {
@@ -252,7 +252,7 @@ export function cmdSeal(options: Record<string, string | boolean>): void {
         owner: (options['issuer-name'] as string) || 'RepoMark Issuer',
         status: 'active'
       };
-      fs.writeFileSync(trustPath, JSON.stringify(trust, null, 2) + '\\n');
+      fs.writeFileSync(trustPath, JSON.stringify(trust, null, 2) + '\n');
     }
     signer = new Ed25519Signer(privKeyPem);
   }

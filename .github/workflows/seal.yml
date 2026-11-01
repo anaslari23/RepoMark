@@ -1,0 +1,41 @@
+name: RepoMark Seal (reusable)
+
+# Callers need:  permissions: { contents: read, id-token: write, attestations: write }
+on:
+  workflow_call:
+
+jobs:
+  seal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: target }
+
+      - uses: actions/checkout@v4
+        with: { repository: anaslari23/RepoMark, path: repomark }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - run: npm ci
+        working-directory: repomark
+
+      - name: Seal clean export with an ephemeral key
+        env:
+          RM: npx --prefix ../repomark tsx ../repomark/packages/cli/src/index.ts
+        run: |
+          mkdir export && git -C target archive HEAD | tar -x -C export
+          find export -name .DS_Store -delete
+          # ephemeral key lives outside the export and dies with the runner
+          $RM seal --dir export --key "$RUNNER_TEMP/ephemeral.pem" \
+            --issuer-name "${{ github.repository }} @ ${{ github.sha }}" --claim verified-origin
+          $RM export --dir export --out sealed.zip
+          $RM verify --target sealed.zip --trust export/.repomark/trust.json
+
+      # Keyless: OIDC-signed Sigstore attestation binds sealed.zip (and its ephemeral
+      # public key) to this repo + workflow. Check with: gh attestation verify sealed.zip -R <repo>
+      - uses: actions/attest@v4
+        with: { subject-path: sealed.zip }
+
+      - uses: actions/upload-artifact@v4
+        with: { name: repomark-sealed-source, path: sealed.zip }
