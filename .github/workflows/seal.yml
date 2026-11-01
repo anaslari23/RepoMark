@@ -27,6 +27,7 @@ jobs:
           mkdir export && git -C target archive HEAD | tar -x -C export
           # drop paths the seal policy ignores, so the zip matches what was sealed
           find export \( -name node_modules -o -name dist \) -prune -exec rm -rf {} +
+          find export -mindepth 2 -name .repomark -prune -exec rm -rf {} +  # nested fixtures
           find export -name .DS_Store -delete
           # ephemeral key lives outside the export and dies with the runner
           $RM seal --dir export --key "$RUNNER_TEMP/ephemeral.pem" \
