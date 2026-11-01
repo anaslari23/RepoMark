@@ -22,7 +22,7 @@ jobs:
 
       - name: Seal clean export with an ephemeral key
         env:
-          RM: npx --prefix ../repomark tsx ../repomark/packages/cli/src/index.ts
+          RM: ${{ github.workspace }}/repomark/node_modules/.bin/tsx ${{ github.workspace }}/repomark/packages/cli/src/index.ts
         run: |
           mkdir export && git -C target archive HEAD | tar -x -C export
           find export -name .DS_Store -delete
